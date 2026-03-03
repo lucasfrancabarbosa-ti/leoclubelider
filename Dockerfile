@@ -1,6 +1,6 @@
-FROM php:8.2-fpm
+FROM php:8.2-cli
 
-# Instalar dependências do sistema
+# Instalar dependências
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -12,27 +12,30 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 
-# Limpar cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Instalar Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Criar diretório de trabalho
 WORKDIR /var/www/html
 
-# Copiar arquivos do projeto
+# Copiar arquivos
 COPY . .
 
-# Instalar dependências do Composer
+# Instalar dependências
 RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
 
-# Definir permissões
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html/storage \
-    && chmod -R 755 /var/www/html/bootstrap/cache
+# Limpar caches do Laravel (IMPORTANTE)
+RUN php artisan config:clear || true
+RUN php artisan route:clear || true
+RUN php artisan view:clear || true
+RUN php artisan cache:clear || true
 
-# Expor porta 9000 para PHP-FPM
-EXPOSE 9000
+# Criar storage link corretamente
+RUN php artisan storage:link || true
 
-CMD ["php-fpm"]
+EXPOSE 80
+
+CMD ["sh", "-c", "echo SERVIDOR INICIADO && php -S 0.0.0.0:${PORT:-80} -t public"]
+
+#CMD ["sh", "-c", "php -S 0.0.0.0:${PORT:-8000} -t public"]
