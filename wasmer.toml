@@ -1,0 +1,18 @@
+[package]
+name = "leoclubelider"
+version = "1.0.0"
+
+[[module]]
+name = "app"
+source = "Dockerfile.prd"
+
+[[command]]
+name = "app"
+module = "app"
+
+[app]
+default = "app"
+
+[[app.services]]
+name = "web"
+port = 8000

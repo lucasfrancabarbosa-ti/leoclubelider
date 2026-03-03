@@ -1,0 +1,5 @@
+name: leoclube
+app_id: da_RbxI9tgU4Bow
+owner: leoclubelider
+package: .
+kind: wasmer.io/App.v0
