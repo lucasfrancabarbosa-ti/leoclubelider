@@ -2,7 +2,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     container_name: leoclube_app
     restart: unless-stopped
     working_dir: /var/www/html
@@ -15,25 +15,25 @@ services:
       mysql:
         condition: service_healthy
     environment:
-      - DB_HOST=db.fr-pari1.bengt.wasmernet.com
-      - DB_PORT=10272
-      - DB_DATABASE=leoclube
-      - DB_USERNAME=4981dd827a938000e0359420b880
-      - DB_PASSWORD=06994981-dd82-7bc6-8000-6233c72c22cf
+      - DB_HOST=dpg-d6jd6thr0fns73bm3tn0-a.oregon-postgres.render.com
+      - DB_PORT=5432
+      - DB_DATABASE=leoclubelider
+      - DB_USERNAME=leoclubelider
+      - DB_PASSWORD=RWulwMebVuK2jKoRGatF5aJxwlUrOOXh
       #- DB_HOST=mysql
       #- DB_PORT=3306
       #- DB_DATABASE=leoclube
       #- DB_USERNAME=leoclube_user
       #- DB_PASSWORD=leoclube_password
-    entrypoint: ["/bin/bash", "/usr/local/bin/entrypoint.sh"]
-    command: php-fpm
+    # entrypoint: ["/bin/bash", "/usr/local/bin/entrypoint.sh"]
+    # command: php-fpm
 
   nginx:
     image: nginx:alpine
     container_name: leoclube_nginx
     restart: unless-stopped
     ports:
-      - "8000:80"
+      - "8001:80"
     volumes:
       - ./:/var/www/html
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf

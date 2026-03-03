@@ -10,7 +10,8 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip \
     libzip-dev \
-    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
+    libpq-dev \
+    && docker-php-ext-install pdo pdo_pgsql pgsql mbstring exif pcntl bcmath gd zip
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
