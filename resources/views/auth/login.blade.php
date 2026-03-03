@@ -64,11 +64,8 @@
     </button>
 
     <div class="auth-footer">
-        <p class="mb-2">
-            <a href="{{ route('password.request') }}">Esqueceu sua senha?</a>
-        </p>
         <p class="mb-0">
-            Não tem uma conta? <a href="{{ route('register') }}">Registre-se</a>
+            <a href="{{ route('password.request') }}">Esqueceu sua senha?</a>
         </p>
     </div>
 </form>

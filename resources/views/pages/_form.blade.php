@@ -9,8 +9,8 @@
 </div>
 
 <div class="mb-3">
-    <label for="body" class="form-label">Texto principal (HTML)</label>
-    <textarea class="form-control @error('body') is-invalid @enderror" id="body" name="body" rows="8" placeholder="Conteúdo em texto ou HTML">{{ old('body', $page->body ?? '') }}</textarea>
+    <label for="body" class="form-label">Texto principal</label>
+    <textarea class="form-control @error('body') is-invalid @enderror" id="body" name="body" rows="8" placeholder="Conteúdo da página (use a barra de ferramentas para formatar)">{{ old('body', $page->body ?? '') }}</textarea>
     @error('body')
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
