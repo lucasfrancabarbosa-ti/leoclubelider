@@ -16,6 +16,11 @@ use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\AdminFeedbackController;
 use App\Http\Controllers\NovidadeController;
 
+// Health check
+Route::get('/health', function () {
+    return response('OK', 200);
+});
+
 // Rotas públicas do site
 Route::get('/', [PublicController::class, 'home'])->name('home');
 Route::get('/pagina/{page}', [PublicController::class, 'showPage'])->name('page.show');
